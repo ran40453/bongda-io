@@ -1,0 +1,12 @@
+{
+  "framework": "vite",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "devCommand": "vite --port $PORT",
+  "functions": {
+    "api/football.js": {
+      "memory": 128,
+      "maxDuration": 10
+    }
+  }
+}
