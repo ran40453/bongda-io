@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
+import { Helmet } from "react-helmet-async";
 import { activeProvider, FootballClient } from "./providers/index.js";
+import { SEO_MAP, SEO_DEFAULT } from "./hooks/useSEO.js";
 
 // ============================================================
 // MOCK DATA — V.League 1 sample, shown when useMock = true
@@ -287,8 +289,16 @@ export default function App() {
   useEffect(() => { load(); }, [load]);
 
   const comp = competitions[activeComp];
+  const seo = SEO_MAP[activeComp] ?? SEO_DEFAULT;
 
   return (
+    <>
+    <Helmet>
+      <title>{seo.title}</title>
+      <meta name="description" content={seo.description} />
+      <meta property="og:title" content={seo.title} />
+      <meta property="og:description" content={seo.description} />
+    </Helmet>
     <div style={{
       minHeight:"100vh", background:"#020817", color:"#e2e8f0",
       fontFamily:"'IBM Plex Sans', system-ui, sans-serif",
@@ -342,13 +352,6 @@ export default function App() {
             <h1 style={{ margin:0, fontSize:22, fontWeight:800, color:"#f1f5f9" }}>{comp.name}</h1>
             <span style={{ fontSize:13, color:"#475569" }}>{comp.country}</span>
           </div>
-          {useMock && (
-            <span style={{
-              marginLeft:"auto", padding:"4px 10px", borderRadius:20,
-              background:"rgba(251,191,36,0.1)", color:"#fbbf24",
-              fontSize:11, fontWeight:600, border:"1px solid rgba(251,191,36,0.2)",
-            }}>● Dữ liệu mẫu</span>
-          )}
         </div>
 
         {/* Sub-tabs */}
@@ -394,5 +397,6 @@ export default function App() {
         </div>
       </div>
     </div>
+    </>
   );
 }
