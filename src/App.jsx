@@ -246,6 +246,77 @@ function ScorerRow({ scorer }) {
 }
 
 // ============================================================
+// PRIVACY POLICY PAGE
+// ============================================================
+function PrivacyPage({ onBack }) {
+  return (
+    <div style={{ minHeight:"100vh", background:"#020817", color:"#e2e8f0", fontFamily:"'IBM Plex Sans', system-ui, sans-serif" }}>
+      <Helmet>
+        <title>Chính sách bảo mật | BóngĐá.io</title>
+        <meta name="description" content="Chính sách bảo mật của BóngĐá.io — cách chúng tôi thu thập và sử dụng dữ liệu." />
+      </Helmet>
+      {/* Header */}
+      <div style={{ background:"linear-gradient(135deg, #0f172a 0%, #0c1a3a 100%)", borderBottom:"1px solid #1e293b", padding:"16px 20px" }}>
+        <div style={{ maxWidth:960, margin:"0 auto", display:"flex", alignItems:"center", gap:12 }}>
+          <button onClick={onBack} style={{ background:"none", border:"none", color:"#3b82f6", cursor:"pointer", fontSize:20, lineHeight:1, padding:0 }}>←</button>
+          <span style={{ fontSize:20 }}>⚽</span>
+          <span style={{ fontWeight:800, fontSize:18, color:"#f1f5f9" }}>BóngĐá.io</span>
+        </div>
+      </div>
+      {/* Content */}
+      <div style={{ maxWidth:720, margin:"0 auto", padding:"32px 20px 60px" }}>
+        <h1 style={{ fontSize:26, fontWeight:800, color:"#f1f5f9", marginBottom:8 }}>Chính sách bảo mật</h1>
+        <p style={{ fontSize:12, color:"#475569", marginBottom:32 }}>Cập nhật lần cuối: tháng 3 năm 2025</p>
+
+        {[
+          {
+            title: "1. Giới thiệu",
+            body: "BóngĐá.io (\"chúng tôi\") cung cấp thông tin thống kê bóng đá trực tiếp. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin của bạn khi truy cập trang web."
+          },
+          {
+            title: "2. Thông tin chúng tôi thu thập",
+            body: "Chúng tôi không yêu cầu đăng ký tài khoản. Chúng tôi có thể thu thập dữ liệu ẩn danh về lượt truy cập thông qua công cụ phân tích (ví dụ: số trang xem, thiết bị, quốc gia truy cập) nhằm cải thiện trải nghiệm người dùng."
+          },
+          {
+            title: "3. Cookie và công nghệ theo dõi",
+            body: "Trang web có thể sử dụng cookie để vận hành quảng cáo và đo lường hiệu quả. Bên thứ ba bao gồm Google (AdSense, Analytics) có thể đặt cookie trên thiết bị của bạn theo chính sách riêng của họ. Bạn có thể vô hiệu hóa cookie trong trình duyệt, nhưng một số tính năng có thể bị ảnh hưởng."
+          },
+          {
+            title: "4. Quảng cáo (Google AdSense)",
+            body: "Chúng tôi sử dụng Google AdSense để hiển thị quảng cáo. Google có thể sử dụng cookie và dữ liệu ẩn danh để hiển thị quảng cáo phù hợp với sở thích của bạn. Để tìm hiểu thêm hoặc từ chối quảng cáo cá nhân hóa, vui lòng truy cập: https://adssettings.google.com"
+          },
+          {
+            title: "5. Dữ liệu bên thứ ba",
+            body: "Dữ liệu thống kê bóng đá được cung cấp bởi API-Football (api-sports.io). Chúng tôi không chia sẻ thông tin cá nhân của người dùng với nhà cung cấp dữ liệu này."
+          },
+          {
+            title: "6. Liên kết bên ngoài",
+            body: "Trang web có thể chứa liên kết đến các trang bên ngoài. Chúng tôi không chịu trách nhiệm về nội dung hay chính sách bảo mật của các trang đó."
+          },
+          {
+            title: "7. Quyền của bạn",
+            body: "Vì chúng tôi không lưu trữ dữ liệu cá nhân, không cần đăng nhập hay đăng ký, bạn không cần yêu cầu xóa dữ liệu. Nếu bạn có thắc mắc về cookie của bên thứ ba, vui lòng liên hệ trực tiếp với các nhà cung cấp đó."
+          },
+          {
+            title: "8. Thay đổi chính sách",
+            body: "Chúng tôi có thể cập nhật chính sách bảo mật này theo thời gian. Mọi thay đổi sẽ được đăng trên trang này kèm ngày cập nhật mới."
+          },
+          {
+            title: "9. Liên hệ",
+            body: "Nếu bạn có câu hỏi về chính sách bảo mật này, vui lòng liên hệ qua địa chỉ: contact@bongda.io"
+          },
+        ].map(({ title, body }) => (
+          <div key={title} style={{ marginBottom:28 }}>
+            <h2 style={{ fontSize:15, fontWeight:700, color:"#93c5fd", marginBottom:8 }}>{title}</h2>
+            <p style={{ fontSize:14, color:"#94a3b8", lineHeight:1.7, margin:0 }}>{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
 // MAIN APP
 // ============================================================
 const { competitions } = activeProvider;
@@ -254,6 +325,7 @@ const TABS = ["standings", "matches", "scorers"];
 const TAB_LABELS = { standings:"Bảng xếp hạng", matches:"Lịch / Kết quả", scorers:"Vua phá lưới" };
 
 export default function App() {
+  const [page,        setPage]       = useState("main"); // "main" | "privacy"
   const [activeComp, setActiveComp] = useState("VL1");
   const [activeTab,  setActiveTab]  = useState("standings");
   const [standings,  setStandings]  = useState([]);
@@ -262,6 +334,8 @@ export default function App() {
   const [loading,    setLoading]    = useState(false);
   const [error,      setError]      = useState(null);
   const [useMock,    setUseMock]    = useState(true);
+
+  if (page === "privacy") return <PrivacyPage onBack={() => setPage("main")} />;
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -394,6 +468,11 @@ export default function App() {
         <div style={{ marginTop:16, fontSize:11, color:"#334155", textAlign:"center" }}>
           Provider: <strong style={{color:"#475569"}}>{activeProvider.name}</strong>
           {" · "}Mùa giải {activeProvider.season}
+          {" · "}
+          <button onClick={() => setPage("privacy")}
+            style={{ background:"none", border:"none", color:"#334155", cursor:"pointer", fontSize:11, padding:0, textDecoration:"underline" }}>
+            Chính sách bảo mật
+          </button>
         </div>
       </div>
     </div>
